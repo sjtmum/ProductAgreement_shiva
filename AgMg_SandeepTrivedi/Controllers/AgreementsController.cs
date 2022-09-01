@@ -32,8 +32,8 @@ namespace AgMg_SandeepTrivedi.Controllers
             var draw = HttpContext.Request.Form["draw"].FirstOrDefault();
             var start = Request.Form["start"].FirstOrDefault();
             var length = Request.Form["length"].FirstOrDefault();
-            //var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
-            //string sortColumn = Request.Form["order[0][column]"].FirstOrDefault();
+            var sortColumn = Request.Form["columns[" + Request.Form["order[0][column]"].FirstOrDefault() + "][name]"].FirstOrDefault();
+            string sortColumn1 = Request.Form["order[0][column]"].FirstOrDefault();
             var sortColumnDirection = Request.Form["order[0][dir]"].FirstOrDefault();
             var searchValue = Request.Form["search[value]"].FirstOrDefault();
 
@@ -42,14 +42,46 @@ namespace AgMg_SandeepTrivedi.Controllers
 
             var agreements = await dBCommoncs.GetAgreements();
 
-            //if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
-            //{
-            //    agreements = agreements.OrderBy(sortColumn + " " + sortColumnDirection);
-            //}
-
             if (!string.IsNullOrEmpty(searchValue))
             {
                 agreements = agreements.Where(m => m.ProductDesc == searchValue || m.ProductGroupDesc == searchValue);
+            }
+
+            if (!(string.IsNullOrEmpty(sortColumn) && string.IsNullOrEmpty(sortColumnDirection)))
+            {
+                //agreements = agreements.OrderBy(sortColumn + " " + sortColumnDirection);
+                //agreements = agreements.OrderBy(sortColumn + " " + sortColumnDirection);
+                switch (sortColumn1)
+                {
+                    case "1":
+                        agreements = sortColumnDirection == "desc"? agreements.OrderByDescending(m => m.ProductGroupDesc) : agreements.OrderBy(m => m.ProductGroupDesc);
+                        break;
+                    case "2":
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.ProductDesc) : agreements.OrderBy(m => m.ProductDesc);
+                        break;
+                    case "3":
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.ProductPrice) : agreements.OrderBy(m => m.ProductPrice);
+                        break;
+                    case "4":
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.NewPrice) : agreements.OrderBy(m => m.NewPrice);
+                        break;
+                    case "5":
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.EffectiveDate) : agreements.OrderBy(m => m.EffectiveDate);
+                        break;
+                    case "6":
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.ExpirationDate) : agreements.OrderBy(m => m.ExpirationDate);
+                        break;
+                    case "7":
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.Active) : agreements.OrderBy(m => m.Active);
+                        break;
+                    case "8":
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.UserId) : agreements.OrderBy(m => m.UserId);
+                        break;
+                    default:
+                        agreements = sortColumnDirection == "desc" ? agreements.OrderByDescending(m => m.Id) : agreements.OrderBy(m => m.Id);
+                        break;
+                }
+
             }
 
             int recordsTotal = agreements.Count();

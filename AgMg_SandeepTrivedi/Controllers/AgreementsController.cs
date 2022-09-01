@@ -25,7 +25,7 @@ namespace AgMg_SandeepTrivedi.Controllers
         {
             //return View(await _context.Agreements.ToListAsync()); //call for sysnc
             return View(await dBCommoncs.GetAgreements()); //call for Index view
-            //return View(); call for Index_paging view
+            //return View(); //call for Index_paging view
         }
         public async Task<IActionResult> GetAgreements()
         {

@@ -7,89 +7,48 @@
 
 <h1>Index</h1>
 
+<div class="row">
+    @Html.Hidden("Idval", (string)ViewBag.alert)
+</div>
 <p>
-    @*<a asp-action="Create" >Create New</a>*@
     <a href="javascript:ShowCreate()">Create New</a>
 </p>
-<div>
-<table class="table" id="tblAgreement">
-    <thead>
-        <tr>
-             <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserId)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductGroupDesc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductDesc)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ProductPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NewPrice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EffectiveDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ExpirationDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Active)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-             <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductGroupDesc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductGroupDesc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ProductPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NewPrice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EffectiveDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ExpirationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="row">
+       <div class="well bs-component">
+        <br />
+        <div class="row">
+            <div>
+                <table class="table table-striped table-bordered table-hover"
+                       id="tblAgreement"
+                       cellspacing="0"
+                       align="center"
+                       width="100%">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>ProductGroupDesc</th>
+                            <th>ProductDesc</th>
+                            <th>ProductPrice</th>
+                            <th>NewPrice</th>
+                            <th>EffectiveDate</th>
+                            <th>ExpirationDate</th>
+                            <th>Active</th>
+                            <th>UserId</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="modal" id="modalWindow">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body text-center">
                         <div role="menu" class="powerwidget-ctrls"> <a href="#" data-dismiss="modal" class="button-icon powerwidget-delete-btn"><i class="fa fa-times-circle"></i></a>  <a href="#" class="button-icon powerwidget-fullscreen-btn"><i class="fa fa-arrows-alt "></i></a> <a href="#" class="button-icon powerwidget-toggle-btn"><i class="fa fa-chevron-circle-up "></i></a></div>
-                        <div>Loading</div>
+                        <div>Loading...</div>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -97,20 +56,98 @@
             <!-- /.modal-dialog -->
         </div>
 </div>
-<script>
-        $(document).ready(function () {
-            $('#tblAgreement').DataTable({
-                searching: true,
-                paging: true,
-            });
-        });
+<script type="text/javascript">
+    var idVal = document.getElementById("Idval").value;
 
-        function ShowCreate() {
+    if (idVal != null && idVal != "")
+    {
+        alert(idVal);
+    }    
+</script>
+<script>
+    $(document).ready(function () {
+    $('#tblAgreement').DataTable(
+    {
+        "columnDefs": [
+            { "width": "5%", "targets": [0] },
+            { "width": "10%", "searchable": false, "orderable": false,  "targets": [7] },
+            { "className": "text-center custom-middle-align", "targets": [0, 1, 2, 3, 4, 5, 6, 7] },
+        ],
+        "language":
+            {
+                "processing": "<div class='overlay custom-loader-background'><i class='fa fa-cog fa-spin custom-loader-color'></i></div>"
+            },
+        "processing": true,
+        "serverSide": true,
+        "ajax":
+            {
+                "url": "/Agreements/GetAgreements",
+                "type": "POST",
+                "dataType": "JSON"
+            },
+        "columns": [
+                    { "data": "id" },
+                    { "data": "productGroupDesc" },
+                    { "data": "productDesc" },
+                    { "data": "productPrice" },
+                    { "data": "newPrice" },
+                    { "data": "effectiveDate" },
+                    { "data": "expirationDate" },
+                    { "data": "active" },
+                    { "data": "userId" },
+                    {
+                        "render": function (data, type, full, meta)
+                        { return '<a class="btn btn-info" href="/Agreements/Edit/' + full.id + '">Edit</a>'; }
+                    },
+                    {
+                        data: null, render: function (data, type, row)
+                        {
+                            //return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.id + "'); >Delete</a>";
+                            { return '<a class="btn btn-danger" href="/Agreements/Delete/' + row.id + '">Delete</a>'; }
+                        }
+                    },
+        ]
+    });
+});
+
+ function DeleteData(Id)
+        {
+            if (confirm("Are you sure you want to delete Agreement?"))
+            {
+                Delete(Id);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+        function Delete(Id)
+    {
+        //var url = '@Url.Content("~/")' + "Agreements/Delete";
+        var url = '/Agreements/Delete';
+
+        $.post(url, { ID: Id }, function (data)
+                {
+                    if (data)
+                    {
+                        oTable = $('#tblAgreement').DataTable();
+                        oTable.draw();
+                    }
+                    else
+                    {
+                        alert("Something Went Wrong!");
+                    }
+                });
+    }
+
+    function ShowCreate() {
             $.get('/Agreements/Create').done(function (res) {
                 $mymodal = $("#modalWindow");
                 $mymodal.find("div.modal-body").html(res);
                 $mymodal.modal("show");
             });
         }
-
 </script>
+

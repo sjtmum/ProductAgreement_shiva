@@ -1,0 +1,10 @@
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\obj\Debug\netcoreapp3.1\AgMgCommon.csproj.AssemblyReference.cache
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\obj\Debug\netcoreapp3.1\AgMgCommon.GeneratedMSBuildEditorConfig.editorconfig
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\obj\Debug\netcoreapp3.1\AgMgCommon.AssemblyInfoInputs.cache
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\obj\Debug\netcoreapp3.1\AgMgCommon.AssemblyInfo.cs
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\obj\Debug\netcoreapp3.1\AgMgCommon.csproj.CoreCompileInputs.cache
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\bin\Debug\netcoreapp3.1\AgMgCommon.deps.json
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\bin\Debug\netcoreapp3.1\AgMgCommon.dll
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\bin\Debug\netcoreapp3.1\AgMgCommon.pdb
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\obj\Debug\netcoreapp3.1\AgMgCommon.dll
+C:\Sandeep\SS_Test1\AgMg_SandeepTrivedi\AgMgCommon\obj\Debug\netcoreapp3.1\AgMgCommon.pdb

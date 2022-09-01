@@ -1,0 +1,74 @@
+﻿@model IEnumerable<AgMg_SandeepTrivedi.Models.ProductGroup>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div>
+<h1>ProductGroup</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table" id="ProdGroupList">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GroupDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupCode)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GroupDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+<script>
+        $(document).ready(function () {
+            $('#ProdGroupList').DataTable({
+                //dom: 'Bfrtip',
+                //searching: true,
+                //paging: true,
+                //pagesize:5,
+                //info: false,
+                //bLengthChange: false,
+                //buttons: [
+                //    //'copyHtml5',
+                //    //'excelHtml5',
+                //    'csvHtml5',
+                //    //'pdfHtml5'
+                //]
+            });
+        });
+</script>
